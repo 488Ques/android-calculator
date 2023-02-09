@@ -12,7 +12,7 @@ public class MainActivity extends AppCompatActivity {
     Button buttonEqual, buttonDiv, buttonMult, buttonPlus, buttonMinus;
     EditText editTextResult;
 
-    int v1, v2;
+    Integer v1, v2;
 
     enum Operation {
         PLUS,
@@ -143,6 +143,29 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 operatorClick(Operation.DIV);
+            }
+        });
+
+        buttonEqual.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (editTextResult.getText().toString().length() != 0 && v1 != null) {
+                    v2 = Integer.parseInt(editTextResult.getText().toString());
+                    switch (operator) {
+                        case PLUS:
+                            editTextResult.setText(v1 + v2 + "");
+                            break;
+                        case MINUS:
+                            editTextResult.setText(v1 - v2 + "");
+                            break;
+                        case MULT:
+                            editTextResult.setText(v1 * v2 + "");
+                            break;
+                        case DIV:
+                            editTextResult.setText(v1 / v2 + "");
+                            break;
+                    }
+                }
             }
         });
     }
