@@ -9,7 +9,7 @@ import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
     Button button0, button1, button2, button3, button4, button5, button6, button7, button8, button9;
-    Button buttonEqual, buttonDiv, buttonMult, buttonPlus, buttonMinus;
+    Button buttonEqual, buttonDiv, buttonMult, buttonPlus, buttonMinus, buttonCLR, buttonDEL;
     EditText editTextResult;
 
     Integer v1, v2;
@@ -44,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
         buttonDiv = findViewById(R.id.buttonDiv);
         buttonMult = findViewById(R.id.buttonMult);
         buttonEqual = findViewById(R.id.buttonEqual);
+        buttonCLR = findViewById(R.id.buttonCLR);
+        buttonDEL = findViewById(R.id.buttonDEL);
 
         editTextResult = findViewById(R.id.editTextResult);
 
@@ -146,6 +148,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        buttonCLR.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                editTextResult.setText("");
+            }
+        });
+
+        buttonDEL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String text = editTextResult.getText().toString();
+                text = text.substring(0, text.length() - 1);
+                editTextResult.setText(text);
+            }
+        });
+
         buttonEqual.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -153,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
                     v2 = Integer.parseInt(editTextResult.getText().toString());
                     switch (operator) {
                         case PLUS:
-                            editTextResult.setText(v1 + v2 + "");
+                            editTextResult.setText(String.valueOf(v1 + v2));
                             break;
                         case MINUS:
                             editTextResult.setText(v1 - v2 + "");
@@ -169,6 +187,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
     protected void operatorClick(Operation op) {
         if (editTextResult.getText().toString().length() == 0) {
             editTextResult.setText("");

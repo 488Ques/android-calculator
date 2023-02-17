@@ -151,10 +151,22 @@
             android:gravity="center">
 
             <Button
+                android:id="@+id/buttonCLR"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CLR" />
+
+            <Button
                 android:id="@+id/button0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0" />
+
+            <Button
+                android:id="@+id/buttonDEL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DEL" />
         </TableRow>
     </TableLayout>
 
