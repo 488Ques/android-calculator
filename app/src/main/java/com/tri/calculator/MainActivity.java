@@ -2,18 +2,22 @@ package com.tri.calculator;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
     Button button0, button1, button2, button3, button4, button5, button6, button7, button8, button9;
-    Button buttonEqual, buttonDiv, buttonMult, buttonPlus, buttonMinus, buttonCLR, buttonDEL;
+    Button buttonEqual, buttonDiv, buttonMult, buttonPlus, buttonMinus, buttonCLR, buttonDEL, buttonHistory;
     EditText editTextExpr;
     TextView textViewResult;
 
+    ArrayList<String> exprs = new ArrayList<String>();
     Integer v1, v2;
 
     enum Operation {
@@ -48,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         buttonEqual = findViewById(R.id.buttonEqual);
         buttonCLR = findViewById(R.id.buttonCLR);
         buttonDEL = findViewById(R.id.buttonDEL);
+        buttonHistory = findViewById(R.id.buttonHistory);
 
         editTextExpr = findViewById(R.id.editTextExpr);
         textViewResult = findViewById(R.id.textViewResult);
@@ -167,6 +172,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        buttonHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent toHistory = new Intent(getApplicationContext(), CalcHistory.class);
+                toHistory.putExtra("exprs", exprs);
+                startActivity(toHistory);
+            }
+        });
+
         buttonEqual.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -175,15 +189,19 @@ public class MainActivity extends AppCompatActivity {
                     switch (operator) {
                         case PLUS:
                             textViewResult.setText(String.valueOf(v1 + v2));
+                            exprs.add(String.format("%d + %d = %d", v1, v2, v1 + v2));
                             break;
                         case MINUS:
                             textViewResult.setText(String.valueOf(v1 - v2));
+                            exprs.add(String.format("%d - %d = %d", v1, v2, v1 - v2));
                             break;
                         case MULT:
                             textViewResult.setText(String.valueOf(v1 * v2));
+                            exprs.add(String.format("%d * %d = %d", v1, v2, v1 * v2));
                             break;
                         case DIV:
                             textViewResult.setText(String.valueOf(v1 / v2));
+                            exprs.add(String.format("%d / %d = %d", v1, v2, v1 / v2));
                             break;
                     }
                 }
