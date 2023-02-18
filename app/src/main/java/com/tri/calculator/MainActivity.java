@@ -1,5 +1,6 @@
 package com.tri.calculator;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -160,6 +161,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 editTextExpr.setText("");
+                textViewResult.setText("");
             }
         });
 
@@ -216,6 +218,23 @@ public class MainActivity extends AppCompatActivity {
             v1 = Integer.parseInt(editTextExpr.getText().toString());
             operator = op;
             editTextExpr.setText("");
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("result", String.valueOf(textViewResult.getText()));
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        String result = savedInstanceState.getString("result");
+
+        if (result != null) {
+            textViewResult.setText(result);
         }
     }
 }
